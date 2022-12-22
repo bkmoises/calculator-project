@@ -2,12 +2,15 @@ function startCalc() {
   return {
     display: document.querySelector('.display'),
     operators: document.querySelectorAll('.x-btn'),
+    oprStatus: false,
+    dotStatus: true,
 
     start() {
       this.btn_click();
       this.btn_check();
       this.listen_btn();
       this.submit_btn();
+      this.clearDisplay_Err();
     },
 
     btn_click() {
@@ -15,10 +18,11 @@ function startCalc() {
         const elem = event.target;
 
         if (elem.classList.contains('btn-num')) this.putNumber(elem.innerHTML);
-        if (elem.classList.contains('x-btn')) this.disableBtn(elem.innerHTML);
+        if (elem.classList.contains('x-btn')) this.putOperator(elem.innerHTML);
         if (elem.classList.contains('btn-clear')) this.clearDisplay();
         if (elem.classList.contains('btn-erase')) this.eraseNumber();
         if (elem.classList.contains('btn-equal')) this.submit();
+        if (elem.classList.contains('btn-dot')) this.disableDot();
 
       });
     },
@@ -35,12 +39,12 @@ function startCalc() {
 
         if (keyNumber || keyNumber === 0) this.putNumber(keyNumber);
 
-        if (keyPress.key === '.') this.disableBtn('.');
-        if (keyPress.key === '+') this.disableBtn('+');
-        if (keyPress.key === '-') this.disableBtn('-');
-        if (keyPress.key === '*') this.disableBtn('*');
-        if (keyPress.key === '/') this.disableBtn('/');
-        if (keyPress.key === '%') this.disableBtn('%');
+        if (keyPress.key === '.' && this.dotStatus) this.putOperator('.');
+        if (keyPress.key === '+') this.putOperator('+');
+        if (keyPress.key === '-') this.putOperator('-');
+        if (keyPress.key === '*') this.putOperator('*');
+        if (keyPress.key === '/') this.putOperator('/');
+        if (keyPress.key === '%') this.putOperator('%');
 
         if (keyPress.keyCode === 27) this.clearDisplay();
         if (keyPress.keyCode === 8) this.eraseNumber();
@@ -56,6 +60,12 @@ function startCalc() {
       });
     },
 
+    clearDisplay_Err() {
+      document.addEventListener('keyup', keyPress => {
+        if (keyPress && this.display.value === 'Invalid!') this.display.value = '';
+      });
+    },
+
     putNumber(value) {
       this.display.value += value;
       this.enableBtn();
@@ -64,6 +74,8 @@ function startCalc() {
     clearDisplay() {
       this.display.value = '';
       this.btn_check();
+      this.oprStatus = false;
+      this.dotStatus = true;
     },
 
     eraseNumber() {
@@ -72,7 +84,7 @@ function startCalc() {
 
     submit() {
       let expression = this.display.value;
-      
+
       try {
         expression = eval(expression);
 
@@ -82,31 +94,50 @@ function startCalc() {
         };
 
         this.display.value = String(expression);
-      } catch(err) {
+      } catch (err) {
         this.display.value = 'Invalid!';
         return;
       };
     },
 
-    disableBtn(value) {
+    putOperator(value) {
       let newValue = value;
 
-      if (value === '×') newValue = "*";
-      if (value === '÷') newValue = "/";
-      if (value === '%') {
-        newValue = this.display.value / 100
-        this.display.value = newValue + "*";
-      } else {
-        this.display.value += newValue;
-      }
+      if (this.oprStatus) {
+        console.log(this.dotStatus)
+        if (value === '.' && !this.dotStatus) return;
+        if (value === '.') this.disableDot();
+        if (value === '×') newValue = "*";
+        if (value === '÷') newValue = "/";
+        if (value === '%') {
+          this.submit();
+          newValue = this.display.value / 100
+          this.display.value = newValue + "*";
+        } else {
+          if (value !== '.') this.enableDot();
+          this.display.value += newValue;
+        };
+        this.disableBtn();
+      };
+    },
 
-      for (elem of this.operators) {elem.disabled = true};
+    disableBtn() {
+      this.oprStatus = false;
+      for (elem of this.operators) { elem.disabled = true };
     },
 
     enableBtn() {
-      for (elem of this.operators) { elem.disabled = false};
+      this.oprStatus = true;
+      for (elem of this.operators) { elem.disabled = false };
     },
 
+    enableDot() {
+      this.dotStatus = true;
+    },
+
+    disableDot() {
+      this.dotStatus = false;
+    },
   };
 };
 
