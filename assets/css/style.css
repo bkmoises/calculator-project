@@ -30,7 +30,12 @@ body {
 
 h1 {
   font-family: "Poppins", "Open Sans", sans-serif;
+  font-size: 25px;
   color: #FFF;
+}
+
+h1:hover {
+  color: rgba(50, 50, 50, 0.4);
 }
 
 input, label, button {
@@ -72,6 +77,7 @@ button {
 
 td {
   padding: 2px;
+  width: 25%;
 }
 
 .btn-esp {
