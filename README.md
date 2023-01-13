@@ -22,12 +22,19 @@ Outras funções como `btn_check`, `submit_btn`, `clearDisplay_Err`, `enableBtn`
 ## Teclas de Atalho
 
 `0-9`: Respectivamente, insere os números ao operando.
+
 `+`: Insere o operador de *soma.*
+
 `-`: Insere o operador de *subtração*.
+
 `*`: Insere o operador de *multiplicação*.
+
 `/`: Insere o operador de *divisão*.
+
 `%`: Insere o operador de *porcentagem*.
+
 `Backspace`: Apaga o operando/operador imediatamente a esquerda.
+
 `Esc`: Limpa o display.
 
 ## Layout
