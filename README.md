@@ -1,4 +1,4 @@
-# # Calculator
+# Calculator
 [![NPM](https://img.shields.io/npm/l/react)](https://github.com/devsuperior/sds1-wmazoni/blob/master/LICENSE)
 
 [Link do projeto](https://bkmoises.github.io/calculator-project/)
@@ -18,6 +18,10 @@ A função `submit` é chamada quando o botão de igual é pressionado ou quando
 A função `putOperator` é chamada quando um operador é pressionado. Ela verifica se um operador já foi pressionado anteriormente e, se sim, impede que a inclusão de um novo operador à expressão atual. Ele também gerencia o uso de ponto decimal, com o uso de dotStatus.
 
 Outras funções como `btn_check`, `submit_btn`, `clearDisplay_Err`, `enableBtn`, `disableDot` gerencia o estado dos botões e validação do display.
+
+## Melhorias
+
+A calculadora possui uma melhoria em relação à calculadora da Apple, resolvendo o inconveniente de ter que clicar no operador de porcentagem e, em seguida, clicar no operador de multiplicação para realizar a operação. Neste projeto, basta clicar no operador de porcentagem e a operação será realizada automaticamente no segundo operando.
 
 ## Teclas de Atalho
 
