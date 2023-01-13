@@ -131,7 +131,6 @@ function startCalc() {
 
       // Changes the pressed value by a valid operator
       if (this.oprStatus) {
-        console.log(this.dotStatus)
         // Control not to allow inserting a point followed by another.
         if (value === '.' && !this.dotStatus) return;
         if (value === '.') this.disableDot();
