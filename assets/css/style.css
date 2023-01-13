@@ -28,10 +28,15 @@ body {
   border-radius: 20px;
 }
 
+.calculator {
+  margin: auto;
+}
+
 h1 {
   font-family: "Poppins", "Open Sans", sans-serif;
   font-size: 25px;
   color: #FFF;
+  margin-left: 22px;
 }
 
 h1:hover {
